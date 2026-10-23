@@ -1,0 +1,9 @@
+# Fallback for Plesk hosting where the document root cannot be pointed at /public.
+# Preferred setup: set the domain's Document root to httpdocs/public in Plesk
+# (Websites & Domains > Hosting Settings), in which case this file is not used.
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^(\.env|\.git|composer\.(json|lock)|artisan|storage|vendor|bootstrap|config|database|routes|resources|tests)(/|$) - [F,L]
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
